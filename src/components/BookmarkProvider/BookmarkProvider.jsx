@@ -31,7 +31,7 @@ function bookmarkReducer(state, action) {
       return {
         ...state,
         isloading: false,
-        bookmarks: [...state.bookmarks, a.payload],
+        bookmarks: [...state.bookmarks, action.payload],
       };
     case "bookmark/deleted":
       return {
@@ -60,7 +60,7 @@ const BookmarkProvider = ({ children }) => {
       dispatch({ type: "loading" });
       try {
         const { data } = await axios.get(
-          `https://hotel-db-d46f.vercel.app/bookmarks`
+          `https://almond-plain-boot.glitch.me/bookmarks`
         );
         dispatch({ type: "bookmarks/loaded", payload: data });
       } catch (error) {
@@ -79,7 +79,7 @@ const BookmarkProvider = ({ children }) => {
     dispatch({ type: "loading" });
     try {
       const { data } = await axios.get(
-        `https://hotel-db-d46f.vercel.app/bookmarks/${id}`
+        `https://almond-plain-boot.glitch.me/bookmarks/${id}`
       );
       dispatch({ type: "bookmark/loaded", payload: data });
     } catch (error) {
@@ -94,21 +94,23 @@ const BookmarkProvider = ({ children }) => {
     dispatch({ type: "loading" });
 
     try {
-      const response = await fetch(
-        "https://hotel-db-d46f.vercel.app/bookmarks",
+     const response= await fetch(
+        "https://almond-plain-boot.glitch.me/bookmarks",
         {
           method: "POST",
-          headers: {
-            Accept: "application.json",
-            "Content-Type": " application/json",
-          },
           body: JSON.stringify(newBookmark),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
         }
-      );
+      )
+        // .then((response) => response.json()).catch(console.log('er'))
+        // .then((json) => console.log(json));
+
       setaddedBookmark(true);
       const result = await response.json();
+      dispatch({ type: "bookmark/created", payload: result });
       console.log("Success:", result);
-      dispatch({ type: "bookmark/created", payload: response });
     } catch (error) {
       dispatch({
         type: "rejected",

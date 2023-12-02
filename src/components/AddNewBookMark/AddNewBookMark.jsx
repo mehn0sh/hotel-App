@@ -67,7 +67,6 @@ const AddNewBookMark = () => {
             e.preventDefault();
             navigate("/bookmarks");
             setaddedBookmark(false);
-            window.location.reload();
           }}
         >
           &larr; Back to Bookmarks

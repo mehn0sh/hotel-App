@@ -8,7 +8,6 @@ const BookMarksList = () => {
   const { isloading, bookmarks, currentBookmark ,deleteBookmark} = useBookmarks();
   const deleteHandler = async (e,id) => {
     e.preventDefault();
-    console.log(id)
     await deleteBookmark(id)
   };
   if (isloading) return <div>loading</div>;
