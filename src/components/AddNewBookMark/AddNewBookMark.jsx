@@ -16,7 +16,7 @@ const AddNewBookMark = () => {
   const [countryCode, setcountryCode] = useState();
   const [isLoadingGeoCoding, setisLoadingGeoCoding] = useState(false);
   const [geoCodingError, setgeoCodingError] = useState("");
-  const { createBookMark, setaddedBookmark, addedBookmark ,isloading} = useBookmarks();
+  const { createBookMark, isloading } = useBookmarks();
 
   useEffect(() => {
     if (!lat || !lng) return;
@@ -53,31 +53,14 @@ const AddNewBookMark = () => {
       host_location: cityName + " " + countryCode,
     };
     await createBookMark(newBookmark);
-    // navigate("/bookmarks");
+    navigate("/bookmarks");
   };
   if (isLoadingGeoCoding) return <p>loading..</p>;
   if (geoCodingError) return <p>{geoCodingError}</p>;
-  if (addedBookmark) {
-    return (
-      <div>
-        successfully added to Book marks
-        <button
-          className="btn--back btn"
-          onClick={(e) => {
-            e.preventDefault();
-            navigate("/bookmarks");
-            setaddedBookmark(false);
-          }}
-        >
-          &larr; Back to Bookmarks
-        </button>
-      </div>
-    );
-  }
   return (
     <div>
       <h2>Bookmark New Location</h2>
-      <form action="" className="form" >
+      <form action="" className="form">
         <div className="formControl">
           <label htmlFor="cityName">city name</label>
           <input type="text" name="cityName" id="cityName" value={cityName} />
@@ -97,8 +80,12 @@ const AddNewBookMark = () => {
           >
             &larr; Back
           </button>
-          <button type="submit" className="btn btn--primary" onClick={submitHandler} >
-            &larr; {`${isloading ? 'loading' : 'add'}`}
+          <button
+            type="submit"
+            className="btn btn--primary"
+            onClick={submitHandler}
+          >
+            &larr; {`${isloading ? "loading" : "add"}`}
           </button>
         </div>
       </form>

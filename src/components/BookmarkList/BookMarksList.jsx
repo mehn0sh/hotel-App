@@ -18,7 +18,7 @@ const BookMarksList = () => {
       <div className="bookmarkList">
         {bookmarks.map((item) => {
           return (
-            <Link to={`${item.id}?lat=${item.latitude}&lng=${item.longitude}`}>
+            <Link to={`${item.id}?lat=${item.latitude}&lng=${item.longitude}`} key={item.id}>
               <div
                 className={`bookmarkItem ${
                   item.id == currentBookmark?.id && "current-bookmark"

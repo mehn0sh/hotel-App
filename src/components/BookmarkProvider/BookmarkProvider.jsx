@@ -94,7 +94,7 @@ const BookmarkProvider = ({ children }) => {
     dispatch({ type: "loading" });
 
     try {
-     const response= await fetch(
+      const response = await fetch(
         "https://almond-plain-boot.glitch.me/bookmarks",
         {
           method: "POST",
@@ -103,14 +103,13 @@ const BookmarkProvider = ({ children }) => {
             "Content-type": "application/json; charset=UTF-8",
           },
         }
-      )
-        // .then((response) => response.json()).catch(console.log('er'))
-        // .then((json) => console.log(json));
+      );
 
       setaddedBookmark(true);
+      toast.success("item successfully BookMarked");
+
       const result = await response.json();
       dispatch({ type: "bookmark/created", payload: result });
-      console.log("Success:", result);
     } catch (error) {
       dispatch({
         type: "rejected",
@@ -122,7 +121,7 @@ const BookmarkProvider = ({ children }) => {
     dispatch({ type: "loading" });
     try {
       const response = await fetch(
-        `https://hotel-db-d46f.vercel.app/bookmarks/${id}`,
+        `https://almond-plain-boot.glitch.me/bookmarks/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -149,8 +148,6 @@ const BookmarkProvider = ({ children }) => {
         currentBookmark,
         getBookmark,
         createBookMark,
-        addedBookmark,
-        setaddedBookmark,
         deleteBookmark,
       }}
     >
